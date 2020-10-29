@@ -1,0 +1,1 @@
+/home/lich/bluetooth_gateway/mtk7688/src_dir/target/mosquitto-1.3.5/lib/mosquitto.h

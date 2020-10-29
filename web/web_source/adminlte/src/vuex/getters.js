@@ -1,0 +1,1 @@
+export const isLogined = (state)=>{ return state.currentUser.name !== null && state.currentUser.dueTime > Date.now();}

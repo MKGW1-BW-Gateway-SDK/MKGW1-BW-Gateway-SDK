@@ -1,0 +1,23 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+START=99
+STOP=10
+USE_PROCD=1
+PROG=/usr/bin/bleserve
+PROG2=/usr/bin/blepub
+
+start_service(){
+        procd_open_instance
+        procd_set_param command "$PROG" 
+        procd_set_param respawn 0
+        procd_close_instance
+        procd_open_instance
+        procd_set_param command "$PROG2" 
+        procd_set_param respawn 0
+        procd_close_instance
+}
+
+stop_service(){
+        service_stop "$PROG2"
+        service_stop "$PROG"
+}

@@ -1,0 +1,39 @@
+FIRMWARE="openwrt-ramips-mt7628-firmware.bin"
+
+ROOTFS="openwrt-ramips-mt7628-root.squashfs"
+KERNEL="openwrt-ramips-mt7628-uImage.bin"
+
+print_help(){
+	echo "unrootfs:  Uncompress rootfs"
+	echo "package:   Generate the firmware"
+	echo "clean:     Clean all Generated file/dir"
+}
+
+[ -z $1 ] || [ $1 = "-h" ] || [ $1 = "--help" ] && { 
+	print_help
+	exit
+}
+
+[ $1 = "unrootfs" ] && {
+	unsquashfs4 $ROOTFS
+	exit
+}
+
+[ $1 = "package" ] && {
+	[ -e squashfs-root ] || { 
+		echo "no dir: squashfs-root, exit!"
+		exit
+	}
+	rm $FIRMWARE
+	mksquashfs4 squashfs-root $ROOTFS.tmp -nopad -noappend -root-owned -comp xz -Xpreset 9 -Xe -Xlc 0 -Xlp 2 -Xpb 2  -b 256k -processors 1
+	cat $KERNEL $ROOTFS.tmp > $FIRMWARE
+	padjffs2 $FIRMWARE 4 8 16 64 128 256
+	md5sum $FIRMWARE | cut -c-32 >> $FIRMWARE
+	rm $ROOTFS.tmp
+	exit
+}
+
+[ $1 = "clean" ] && {
+	rm -r squashfs-root $FIRMWARE 
+	exit
+}
