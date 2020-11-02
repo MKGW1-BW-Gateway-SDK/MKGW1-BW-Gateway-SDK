@@ -90,8 +90,8 @@ JSON *get_one_data(char *macaddr, iBeacon_DT accept, iBeacon_Data *idata)
 				                V_INT, "TxPower(dBm)",      mkibeacon->TxPower,
 				                V_INT, "Batterylevel(%)",   mkibeacon->Batterylevel,
 				                V_STR, "3axisdata-X(hex)",  mkibeacon3x->three_axisdata_X,
-				                V_STR, "3axisdata-Y(hex)",  mkibeacon3x->three_axisdata_X,
-				                V_STR, "3axisdata-Z(hex)",  mkibeacon3x->three_axisdata_Y);			
+				                V_STR, "3axisdata-Y(hex)",  mkibeacon3x->three_axisdata_Y,
+				                V_STR, "3axisdata-Z(hex)",  mkibeacon3x->three_axisdata_Z);
 			break;
     	case DT_MkBeaconX_3Axis:
 			mkbeaconx_3x = &idata->custdata.mkbeaconx_3x;
